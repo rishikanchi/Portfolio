@@ -1,7 +1,10 @@
 import { motion, Variants } from "framer-motion";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Github } from "lucide-react";
 import Header from "@/components/Header";
 import ViewMoreLink from "@/components/ViewMoreLink";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const fadeUpVariant: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -17,6 +20,26 @@ const fadeUpVariant: Variants = {
 };
 
 const Index = () => {
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if this navigation came from "back to home" button
+    const fromBackToHome = sessionStorage.getItem("fromBackToHome");
+
+    // Clear the flag immediately (whether it exists or not)
+    sessionStorage.removeItem("fromBackToHome");
+
+    if (!fromBackToHome) {
+      setIsLoading(true);
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 3200); // 3.2 seconds for complete clip-path animation
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]);
+
   const upToItems = [
     {
       title: "Columbia University",
@@ -56,15 +79,15 @@ const Index = () => {
       items: [
         {
           text: "Flow: The Psychology of Optimal Experience, Mihaly Csikszentmihalyi",
-          link: "https://www.amazon.com/Flow-Psychology-Optimal-Experience-Perennial/dp/0061339202",
+          link: "https://www.goodreads.com/book/show/66354.Flow",
         },
         {
           text: "Fascinated to Presume: In Defense of Fiction, Zadie Smith",
-          link: "https://www.amazon.com/Fascinated-Presume-Defense-Fiction/dp/B08L9Q7Z8K",
+          link: "https://www.nybooks.com/articles/2019/10/24/zadie-smith-in-defense-of-fiction/",
         },
         {
           text: "Inner Engineering, Sadhguru",
-          link: "https://www.amazon.com/Inner-Engineering-Sadhguru/dp/1683640275",
+          link: "https://www.goodreads.com/en/book/show/29513878-inner-engineering",
         },
       ],
     },
@@ -73,7 +96,7 @@ const Index = () => {
       items: [
         {
           text: "Naval Ravikant on Modern Wisdom",
-          link: "https://open.spotify.com/show/5qSUyJZ5M4vnxF7xnljvhZ",
+          link: "https://open.spotify.com/episode/2RdJcE1JLvrFk6QxpDpmJK",
         },
         {
           text: "Aquemini by Outkast",
@@ -81,7 +104,11 @@ const Index = () => {
         },
         {
           text: "Tristan Harris on The Diary of a CEO",
-          link: "https://open.spotify.com/episode/4Y3Z3Z3Z3Z3Z3Z3Z3Z3Z3",
+          link: "https://open.spotify.com/episode/1S8FEbhkaQQ8Yrx4e3f5Vh",
+        },
+        {
+          text: "Glory by JID",
+          link: "https://open.spotify.com/track/2hplcKUnz9EuePPNiz2FRH",
         },
       ],
     },
@@ -102,6 +129,10 @@ const Index = () => {
       ],
     },
   ];
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-background flex flex-col">
@@ -131,32 +162,27 @@ const Index = () => {
                   key={item.title}
                   variants={fadeUpVariant}
                   custom={index + 1}
-                  className={`group ${
-                    item.title === "Paraxis" ||
-                    item.title === "Arxiv Research Explorer"
-                      ? "cursor-pointer"
-                      : ""
-                  }`}
-                  onClick={
-                    item.title === "Paraxis"
-                      ? () => window.open("https://paraxis.ai", "_blank")
-                      : item.title === "Arxiv Research Explorer"
-                      ? () =>
-                          window.open(
-                            "https://github.com/rishikanchi/ArxivApp",
-                            "_blank"
-                          )
-                      : undefined
-                  }
+                  className="group"
                 >
                   <div className="mb-4">
                     <h3
                       className={`card-title text-foreground mb-1 ${
                         item.title === "Paraxis" ||
                         item.title === "Arxiv Research Explorer"
-                          ? "group-hover:text-accent transition-colors duration-300"
+                          ? "hover:text-accent transition-colors duration-300 cursor-pointer"
                           : ""
                       }`}
+                      onClick={
+                        item.title === "Paraxis"
+                          ? () => window.open("https://paraxis.ai", "_blank")
+                          : item.title === "Arxiv Research Explorer"
+                          ? () =>
+                              window.open(
+                                "https://github.com/rishikanchi/ArxivApp",
+                                "_blank"
+                              )
+                          : undefined
+                      }
                     >
                       {item.title}
                     </h3>

@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Header from './Header';
+import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import Header from "./Header";
 
 interface PageLayoutProps {
   title: string;
@@ -12,7 +12,7 @@ const PageLayout = ({ title, children }: PageLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="pt-32 pb-16 px-8 md:px-12 lg:px-16">
         <div className="max-w-5xl mx-auto">
           {/* Back Link */}
@@ -24,6 +24,7 @@ const PageLayout = ({ title, children }: PageLayoutProps) => {
           >
             <Link
               to="/"
+              onClick={() => sessionStorage.setItem("fromBackToHome", "true")}
               className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               <ArrowLeft size={18} strokeWidth={1.5} />

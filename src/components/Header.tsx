@@ -188,7 +188,7 @@ const Header = () => {
                         <Link
                           to={link.path}
                           onClick={() => setIsMenuOpen(false)}
-                          className={`font-serif text-2xl md:text-3xl font-medium transition-colors duration-300 ${
+                          className={`font-serif text-4xl md:text-5xl font-medium transition-colors duration-300 ${
                             location.pathname === link.path
                               ? "text-accent"
                               : "text-foreground hover:text-accent"
