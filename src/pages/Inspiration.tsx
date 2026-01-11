@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import PageLayout from '@/components/PageLayout';
 
 const inspirationData = {
@@ -28,89 +29,40 @@ const inspirationData = {
     { title: 'The Diary of a CEO (Episode with Tristan Harris)', host: 'Steven Bartlett & Tristan Harris', note: 'Tristan\'s insights on the "Attention Economy" deeply influence how I think about ethical app development and user retention.' },
     { title: 'How to Get Rich (Tweetstorm/Podcast)', host: 'Naval Ravikant', note: 'The definitive guide to the modern age of leverage (Code & Media). "Productize Yourself" is a motto I live by.' },
   ],
+  companies: [
+    { name: 'Cerebras', link: 'https://cerebras.net/', description: 'AI hardware company pushing the boundaries of neural processing' },
+    { name: 'Linear', link: 'https://linear.app/', description: 'Beautifully crafted software that respects users' },
+    { name: 'NOTHING', link: 'https://nothing.tech/', description: 'Innovative technology company founded by Carl Pei' },
+    { name: 'Gemini', link: 'https://gemini.google.com/', description: 'Google\'s AI model advancing conversational AI' },
+  ],
 };
 
 const Inspiration = () => {
-  return (
-    <PageLayout title="What Inspires Me">
-      <div className="space-y-20">
-        {/* Quotes */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          <h2 className="font-serif text-2xl font-medium mb-8 text-foreground">
-            Quotes
-          </h2>
-          <div className="space-y-8">
-            {inspirationData.quotes.map((quote, index) => (
-              <motion.blockquote
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 + index * 0.08, duration: 0.5 }}
-                className="border-l-2 border-accent pl-6"
-              >
-                <p className="font-serif text-lg md:text-xl text-foreground italic mb-2">
-                  {quote.text}
-                </p>
-                <cite className="text-sm text-muted-foreground not-italic">
-                  — {quote.author}
-                </cite>
-              </motion.blockquote>
-            ))}
-          </div>
-        </motion.section>
+  const [activeTab, setActiveTab] = useState<'readings' | 'audio' | 'quotes' | 'companies'>('readings');
 
-        {/* Music */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <h2 className="font-serif text-2xl font-medium mb-8 text-foreground">
-            Music
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {inspirationData.music.map((song, index) => (
-              <motion.div
-                key={song.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.05, duration: 0.4 }}
-                className="p-5 border border-border rounded-lg hover:border-accent transition-colors duration-300"
-              >
-                <h3 className="font-serif text-base font-medium text-foreground mb-1">
-                  {song.title}
-                </h3>
-                <p className="text-sm text-accent mb-2">
-                  {song.artist}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {song.note}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+  const tabs = [
+    { id: 'readings', label: 'Readings' },
+    { id: 'audio', label: 'Audio' },
+    { id: 'quotes', label: 'Quotes' },
+    { id: 'companies', label: 'Companies' },
+  ];
 
-        {/* Readings */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <h2 className="font-serif text-2xl font-medium mb-8 text-foreground">
-            Readings
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'readings':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
             {inspirationData.readings.map((book, index) => (
               <motion.div
                 key={book.title}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 + index * 0.05, duration: 0.4 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
                 className="p-5 border border-border rounded-lg hover:border-accent transition-colors duration-300"
               >
                 <h3 className="font-serif text-base font-medium text-foreground mb-1">
@@ -124,41 +76,146 @@ const Inspiration = () => {
                 </p>
               </motion.div>
             ))}
-          </div>
-        </motion.section>
+          </motion.div>
+        );
 
-        {/* Podcasts */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-        >
-          <h2 className="font-serif text-2xl font-medium mb-8 text-foreground">
-            Podcasts
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {inspirationData.podcasts.map((podcast, index) => (
+      case 'audio':
+        const allAudio = [
+          ...inspirationData.music.map(song => ({ ...song, type: 'music' as const })),
+          ...inspirationData.podcasts.map(podcast => ({ ...podcast, type: 'podcast' as const }))
+        ];
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            {allAudio.map((item, index) => (
               <motion.div
-                key={podcast.title}
+                key={`${item.type}-${item.title}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + index * 0.05, duration: 0.4 }}
+                transition={{ delay: index * 0.05, duration: 0.4 }}
                 className="p-5 border border-border rounded-lg hover:border-accent transition-colors duration-300"
               >
                 <h3 className="font-serif text-base font-medium text-foreground mb-1">
-                  {podcast.title}
+                  {item.title}
                 </h3>
                 <p className="text-sm text-accent mb-2">
-                  {podcast.host}
+                  {item.type === 'music' ? item.artist : item.host}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {podcast.note}
+                  {item.note}
                 </p>
               </motion.div>
             ))}
-          </div>
-        </motion.section>
+          </motion.div>
+        );
 
+      case 'quotes':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-8"
+          >
+            {inspirationData.quotes.map((quote, index) => (
+              <motion.blockquote
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="border-l-2 border-accent pl-6"
+              >
+                <p className="font-serif text-lg md:text-xl text-foreground italic mb-2">
+                  {quote.text}
+                </p>
+                <cite className="text-sm text-muted-foreground not-italic">
+                  — {quote.author}
+                </cite>
+              </motion.blockquote>
+            ))}
+          </motion.div>
+        );
+
+      case 'companies':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            {inspirationData.companies.map((company, index) => (
+              <motion.div
+                key={company.name}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+                className="p-5 border border-border rounded-lg hover:border-accent transition-colors duration-300"
+              >
+                <h3 className="font-serif text-base font-medium text-foreground mb-1">
+                  {company.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {company.description}
+                </p>
+                <a
+                  href={company.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:text-accent/80 transition-colors duration-300 text-sm"
+                >
+                  Visit website →
+                </a>
+              </motion.div>
+            ))}
+          </motion.div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <PageLayout title="What Inspires Me">
+      <div className="space-y-12">
+        {/* Tab Toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center"
+        >
+          <div className="inline-flex bg-card border border-border rounded-lg p-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`px-6 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
+                  activeTab === tab.id
+                    ? 'bg-accent text-accent-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Content */}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {renderContent()}
+        </motion.div>
       </div>
     </PageLayout>
   );

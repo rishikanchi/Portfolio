@@ -52,7 +52,8 @@
   }
 
   .dark {
-    --background: 30 10% 10%;
+    /* --background: 30 10% 10%; */  /* Previous: Very dark brown-black */
+    --background: 220 15% 10%;       /* Current: Very dark charcoal/navy */
     --foreground: 40 15% 92%;
 
     --card: 30 10% 12%;

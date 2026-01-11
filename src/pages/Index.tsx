@@ -97,6 +97,7 @@ const Index = () => {
       items: [
         { text: "Cerebras", link: "https://cerebras.net/" },
         { text: "Linear", link: "https://linear.app/" },
+        { text: "NOTHING", link: "https://nothing.tech/" },
         { text: "Gemini", link: "https://gemini.google.com/" },
       ],
     },
@@ -107,7 +108,8 @@ const Index = () => {
       <Header />
 
       {/* Main Content */}
-      <main className="h-screen flex flex-col justify-center px-8 md:px-12 lg:px-16">
+      <main className="h-screen flex flex-col justify-center px-8 md:px-12 lg:px-16 pt-32 pb-8">
+        {/* Phantom spacing (pt-32 pb-8) to center content between fixed header (~120px) and footer (~32px) */}
         <div className="max-w-7xl mx-auto w-full">
           {/* What I'm Up To Section */}
           <motion.section
@@ -226,13 +228,15 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* Footer - Commented out for minimalist design */}
+      {/*
       <footer className="fixed bottom-0 left-0 right-0 px-8 md:px-12 lg:px-16 py-4 text-center">
         <p className="text-xs text-muted-foreground">
           Designed loosely in <span className="text-accent">Figma</span> and
           coded in <span className="text-accent">Cursor</span> by yours truly.
         </p>
       </footer>
+      */}
     </div>
   );
 };
