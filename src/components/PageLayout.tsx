@@ -36,7 +36,7 @@ const PageLayout = ({ title, children }: PageLayoutProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium mb-16 tracking-tight"
+            className="font-serif text-3xl md:text-4xl lg:text-5xl font-medium mb-16 tracking-tight"
           >
             {title}
           </motion.h1>

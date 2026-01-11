@@ -4,52 +4,39 @@ import { FileText, ExternalLink } from 'lucide-react';
 
 const publications = [
   {
-    title: 'Bridging Cognitive Models and Neural Networks: A Unified Framework',
-    venue: 'CogSci 2024',
-    authors: ['R. Kanchi', 'J. Smith', 'M. Johnson'],
-    abstract: 'We present a novel framework that bridges traditional cognitive models with modern neural network architectures, enabling researchers to leverage insights from both paradigms.',
+    title: 'Computational Modeling of Astrocytic GLT-1 Downregulation in ALS: Evaluating Riluzole vs. FP802 Efficacy',
+    venue: 'Cold Spring Harbor Laboratory Neurodegenerative Diseases Conference 2024',
+    authors: ['R. Kanchi'],
+    abstract: 'Presented research on ODE models of tripartite synapses simulating astrocytic GLT-1 downregulation in ALS. Demonstrated that while FP802 reduced neuronal calcium more effectively than Riluzole, neither treatment fully restored equilibrium.',
     links: {
-      paper: 'https://arxiv.org/paper1',
-      code: 'https://github.com/rishikanchi/cognitive-nn',
+      paper: 'https://cshl.edu/conferences/',
     },
   },
   {
-    title: 'Attention Mechanisms in Human Decision Making',
-    venue: 'NeurIPS 2023 Workshop',
-    authors: ['R. Kanchi', 'A. Chen'],
-    abstract: 'An investigation into how attention mechanisms in transformer models parallel selective attention in human cognition, with implications for AI alignment.',
-    links: {
-      paper: 'https://arxiv.org/paper2',
-    },
-  },
-  {
-    title: 'Interpretable AI for Cognitive Science Research',
-    venue: 'ICLR 2023',
-    authors: ['R. Kanchi', 'L. Williams', 'P. Davis'],
-    abstract: 'We develop interpretable AI methods specifically designed for cognitive science applications, enabling researchers to gain insights into both model and human behavior.',
-    links: {
-      paper: 'https://arxiv.org/paper3',
-      code: 'https://github.com/rishikanchi/interp-cogsci',
-    },
+    title: 'Comparative Analysis of Riluzole vs. Ceftriaxone in ALS Treatment Using C. elegans Models',
+    venue: 'ISEF Qualifying Fair 2025',
+    authors: ['R. Kanchi'],
+    abstract: 'Investigating the difference between inhibiting glutamate release (Riluzole) vs. enhancing GLT-1 transporter function (Ceftriaxone) using CRISPR/Cas9 engineered C. elegans expressing SOD1 G85R mutation.',
+    links: {},
   },
 ];
 
 const researchInterests = [
   {
-    area: 'Computational Cognitive Science',
-    description: 'Developing computational models that capture human cognitive processes, from perception to decision-making.',
+    area: 'Computational Neuroscience',
+    description: 'Developing ODE models of tripartite synapses to simulate astrocytic GLT-1 downregulation in ALS. Building differential equation models integrating Hodgkin-Huxley neurons and astrocyte dynamics.',
   },
   {
-    area: 'AI Alignment & Safety',
-    description: 'Exploring methods to ensure AI systems behave in accordance with human values and intentions.',
+    area: 'ALS Therapeutics Research',
+    description: 'Evaluating therapeutic agents like Riluzole vs. FP802 for ALS treatment. Investigating glutamate transporter function and neuronal action potentials in neurodegenerative disease models.',
   },
   {
-    area: 'Neural Network Interpretability',
-    description: 'Creating tools and techniques to understand how neural networks process information and make decisions.',
+    area: 'Neurodegenerative Disease Modeling',
+    description: 'Using CRISPR/Cas9 engineered C. elegans models to study ALS pathology. Measuring paralysis onset, motor response, and survival rates in genetic disease models.',
   },
   {
-    area: 'Human-AI Interaction',
-    description: 'Designing AI systems that effectively collaborate with humans, enhancing rather than replacing human capabilities.',
+    area: 'Biomedical Data Analysis',
+    description: 'Applying machine learning and statistical methods to analyze complex biological datasets. Integrating experimental results with computational modeling for drug discovery.',
   },
 ];
 
